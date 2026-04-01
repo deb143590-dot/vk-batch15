@@ -1,0 +1,30 @@
+{
+	"name": "demo",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set Master Pipeline Run Id",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "MasterPipelineRunId",
+					"value": {
+						"value": "@pipeline().RunId",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"MasterPipelineRunId": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
