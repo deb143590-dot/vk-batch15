@@ -1,0 +1,65 @@
+{
+	"name": "adf_to_adb",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute-Test3-NB",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/abc@deb143590gmail.onmicrosoft.com/test3",
+					"baseParameters": {
+						"masterPipelineRunid": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_adb",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Execute-Test3-NB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "name",
+					"value": {
+						"value": "@activity('Execute-Test3-NB').output.runOutput",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"name": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-03-31T02:32:36Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
